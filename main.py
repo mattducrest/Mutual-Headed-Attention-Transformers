@@ -36,6 +36,8 @@ train_metadata_path = '/kaggle/input/isic-2024-challenge/train-metadata.csv'
 train_image_path = '/kaggle/input/isic-2024-challenge/train-image.hdf5'
 isic_2024_metadata_df = pd.read_csv(train_metadata_path)
 
+features_remove = ['lesion_id','attribution', 'copyright_license', 'image_type','iddx_full','iddx_1','iddx_2','iddx_3','iddx_4','iddx_5','mel_mitotic_index', 'mel_thick_mm','tbp_lv_dnn_lesion_confidence']
+
 #set device to gpu if available
 device = (
     "cuda"
