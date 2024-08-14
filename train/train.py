@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 import random as rd
 from PIL import Image
-from io import BytesIO
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
@@ -26,7 +25,6 @@ import albumentations as A
 
 np.random.seed(42)
 torch.manual_seed(42)
-
 
 def train_one_epoch(epoch, multimodal_transformer, train_loader, optimizer, criterion, device, num_steps, pos_weight=5):
     multimodal_transformer.train()
