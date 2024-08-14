@@ -14,6 +14,14 @@ from torchvision.transforms import ToTensor
 np.random.seed(42)
 torch.manual_seed(42)
 
+device = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "mps"
+    if torch.backends.mps.is_available()
+    else "cpu"
+)
+
 #soft label encoder
 def soft_label_encoder(df):
     df = df.drop(columns = features_remove)
@@ -66,10 +74,12 @@ class SLE_FCN(nn.Module):
 
 #ViT Encoder
 class ViTEncoder(nn.Module):
-    def __init__(self, model_name, checkpoint_path, pretrained=False):
+    def __init__(self, model_name, checkpoint_path = None, pretrained=False):
         super(ViTEncoder, self).__init__()
-        self.model = timm.create_model(model_name, checkpoint_path =checkpoint_path, pretrained = pretrained)
-        
+        if checkpoint_path is not None :    
+            self.model = timm.create_model(model_name, pretrained = pretrained)
+        else :
+            self.model = timm.create_model(model_name, checkpoint_path =checkpoint_path, pretrained = pretrained)
         for param in self.model.parameters():
             param.requires_grad = False
 
@@ -188,7 +198,7 @@ class Multimodal_Transformer(nn.Module):
         
         self.sle_fcn = SLE_FCN()
         
-        self.vit_encoder = ViTEncoder('vit_base_patch16_224', checkpoint_path = '/kaggle/input/vit-base-models-pretrained-pytorch/jx_vit_base_p16_224-80ecf9dd.pth', pretrained=True).to(device)
+        self.vit_encoder = ViTEncoder('vit_base_patch16_224', pretrained=True).to(device)
         self.vit_fcn = ViT_FCN()
         
         self.final_fcn = Final_FCN()
