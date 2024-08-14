@@ -34,7 +34,7 @@ def soft_label_encoder(df):
         
         
     df = df.replace([np.nan], -1) #replace nan values by -1 in rest of df
-    df = df.replace([np.inf, -np.inf, 0], 0.01) #replace infinitesmal and 0 values by 0.01
+    df = df.replace([np.inf, -np.inf, 0], 0.01) #replace infinitesimal and 0 values by 0.01
     
     df['target'] = df['target'].replace(0.01,0)
 
