@@ -9,7 +9,6 @@ from sklearn.preprocessing import OrdinalEncoder
 
 import torch
 import torch.nn as nn
-from torchvision.transforms import ToTensor
 
 np.random.seed(42)
 torch.manual_seed(42)

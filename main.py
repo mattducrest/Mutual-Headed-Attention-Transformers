@@ -4,29 +4,16 @@ from train.train import *
 
 #necessary imports
 import os
-import timm
-import h5py
 import numpy as np
 import pandas as pd
 import random as rd
-from PIL import Image
-from io import BytesIO
-from tqdm import tqdm
 import matplotlib.pyplot as plt
-
-from sklearn.metrics import accuracy_score, recall_score
-from sklearn.preprocessing import OrdinalEncoder
 
 import torch
 import torch.nn as nn
 from torch.optim import Adam
-from torch.nn import CrossEntropyLoss
-from torch.utils.data import DataLoader, Dataset, ConcatDataset
-from torchvision.transforms import ToTensor
-from torchvision.datasets.mnist import MNIST
-
-from albumentations.pytorch import ToTensorV2
-import albumentations as A
+from torch.nn import BCELoss
+from torch.utils.data import DataLoader
 
 np.random.seed(42)
 torch.manual_seed(42)
@@ -76,7 +63,7 @@ multimodal_transformer = Multimodal_Transformer()
 multimodal_transformer.to(device)
 
 # Define loss function and optimizer
-criterion = nn.BCELoss()
+criterion = BCELoss()
 optimizer = Adam(multimodal_transformer.parameters(), lr=0.00001)
 
 # Training loop
