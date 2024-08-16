@@ -9,8 +9,9 @@ import pandas as pd
 import random as rd
 import matplotlib.pyplot as plt
 
+from sklearn.model_selection import train_test_split
+
 import torch
-import torch.nn as nn
 from torch.optim import Adam
 from torch.nn import BCELoss
 from torch.utils.data import DataLoader
@@ -38,7 +39,6 @@ print(f"Using {device} device")
 #soft label encode the dataframe
 soft_shuffled_df = soft_label_encoder(isic_2024_metadata_df)
 
-from sklearn.model_selection import train_test_split
 train_df, val_df = train_test_split(soft_shuffled_df, test_size=0.2, random_state=42, stratify = soft_shuffled_df['target'])
 
 # Create datasets Training Datasets (With and Without augmentation)
